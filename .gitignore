@@ -1,0 +1,20 @@
+# LaTeX build artefacts
+*.aux
+*.log
+*.out
+*.toc
+build/
+proposal-business/build/
+proposal-tech/build/
+
+# PDFs (generated outputs — logos in docs/ are committed intentionally)
+proposal-business/build/*.pdf
+proposal-tech/build/*.pdf
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+.venv/

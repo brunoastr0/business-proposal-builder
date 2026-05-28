@@ -1,0 +1,29 @@
+# LaTeX build artifacts
+proposal-business/build/
+**/*.aux
+**/*.log
+**/*.out
+**/*.toc
+
+# Python bytecode
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+
+# Unneeded template directories
+TPC_3_LTW/
+TPC_3_LTW.zip
+proposal-tech/
+proposal-tech.zip
+setup/
+
+# Office/design files
+*.docx
+*.docm
+*.svg
+*.zip
+
+# Root-level build artefacts
+build/
+main.tex
+README.md

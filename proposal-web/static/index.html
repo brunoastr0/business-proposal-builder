@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Propostas — Grupo Acacia</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <span class="logo">Grupo Acacia</span>
+  <div class="divider"></div>
+  <span class="subtitle">Gerador de Propostas Comerciais</span>
+</header>
+
+<div class="layout">
+
+  <!-- ── Sidebar ───────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <h2>Tipo de Documento</h2>
+      <div class="field">
+        <label for="doctype">Título</label>
+        <input id="doctype" type="text" value="Proposta Comercial">
+      </div>
+
+      <h2>Cliente</h2>
+      <div class="field">
+        <label for="client-name">Nome</label>
+        <input id="client-name" type="text" placeholder="Nome do cliente">
+      </div>
+      <div class="field">
+        <label for="client-company">Empresa</label>
+        <input id="client-company" type="text" placeholder="Nome da empresa">
+      </div>
+      <div class="field">
+        <label for="client-address">Morada</label>
+        <input id="client-address" type="text" placeholder="Morada">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="client-email">Email</label>
+          <input id="client-email" type="email" placeholder="email@…">
+        </div>
+        <div class="field">
+          <label for="client-phone">Telefone</label>
+          <input id="client-phone" type="text" placeholder="+351 …">
+        </div>
+      </div>
+
+      <h2>Proponente</h2>
+      <div class="field">
+        <label for="proponent-name">Nome / Empresa</label>
+        <input id="proponent-name" type="text" value="Grupo Acacia">
+      </div>
+      <div class="field">
+        <label for="proponent-contact">Contacto</label>
+        <input id="proponent-contact" type="text" placeholder="Nome do responsável">
+      </div>
+      <div class="field">
+        <label for="proponent-address">Morada</label>
+        <input id="proponent-address" type="text" placeholder="Morada">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="proponent-email">Email</label>
+          <input id="proponent-email" type="email" placeholder="email@…">
+        </div>
+        <div class="field">
+          <label for="proponent-phone">Telefone</label>
+          <input id="proponent-phone" type="text" placeholder="+351 …">
+        </div>
+      </div>
+      <div class="field">
+        <label for="proponent-website">Website</label>
+        <input id="proponent-website" type="text" placeholder="www.grupoacacia.com">
+      </div>
+
+      <h2>Proposta</h2>
+      <div class="field">
+        <label for="proposal-ref">Referência</label>
+        <input id="proposal-ref" type="text" value="PROP.2026/001">
+      </div>
+      <div class="field">
+        <label for="proposal-date">Data</label>
+        <input id="proposal-date" type="text" placeholder="28 de maio de 2026">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="proposal-version">Versão</label>
+          <input id="proposal-version" type="text" value="ver. 1.0">
+        </div>
+        <div class="field">
+          <label for="currency">Moeda</label>
+          <input id="currency" type="text" value="€">
+        </div>
+      </div>
+
+      <h2>Parceiro (opcional)</h2>
+      <div class="field">
+        <label for="partner-count">Ativar parceiro</label>
+        <select id="partner-count">
+          <option value="0">Não</option>
+          <option value="1">Sim</option>
+        </select>
+      </div>
+      <div id="partner-fields" style="display:none">
+        <div class="field">
+          <label for="partner-name">Nome</label>
+          <input id="partner-name" type="text" placeholder="Nome do parceiro">
+        </div>
+        <div class="field">
+          <label for="partner-contact">Contacto</label>
+          <input id="partner-contact" type="text" placeholder="Nome do responsável">
+        </div>
+        <div class="field">
+          <label for="partner-address">Morada</label>
+          <input id="partner-address" type="text" placeholder="Morada">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="partner-email">Email</label>
+            <input id="partner-email" type="email" placeholder="email@…">
+          </div>
+          <div class="field">
+            <label for="partner-phone">Telefone</label>
+            <input id="partner-phone" type="text" placeholder="+351 …">
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /sidebar-inner -->
+
+    <div class="sidebar-footer">
+      <button id="generate-btn" type="button">
+        <div class="spinner"></div>
+        <span class="label">Gerar PDF</span>
+      </button>
+      <div id="toast"></div>
+    </div>
+  </aside>
+
+  <!-- ── Content editors ───────────────────────────── -->
+  <main class="content">
+
+    <!-- Section 1 -->
+    <div class="section-block">
+      <div class="section-banner">
+        <div class="num">1</div>
+        <div class="title">Resumo Executivo</div>
+      </div>
+      <div id="editor-summary"></div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section-block">
+      <div class="section-banner">
+        <div class="num">2</div>
+        <div class="title">Descrição do Problema</div>
+      </div>
+      <div id="editor-problem"></div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="section-block">
+      <div class="section-banner">
+        <div class="num">3</div>
+        <div class="title">Solução Proposta</div>
+      </div>
+      <div id="editor-solution"></div>
+    </div>
+
+    <!-- Images block (appended to section 3 in PDF) -->
+    <div class="section-block">
+      <div class="extras-banner">
+        <span class="ext-icon">🖼</span>
+        <span class="ext-title">Imagens</span>
+        <button class="add-btn" onclick="addImage()">+ Adicionar imagem</button>
+      </div>
+      <div class="images-container" id="images-container">
+        <p class="images-empty" id="images-empty">
+          Nenhuma imagem adicionada. As imagens serão incluídas na secção «Solução Proposta».
+        </p>
+      </div>
+    </div>
+
+    <!-- Products table — standalone block before section 4 -->
+    <div class="section-block">
+      <div class="extras-banner">
+        <span class="ext-icon">📦</span>
+        <span class="ext-title">Produtos / Serviços</span>
+        <button class="add-btn" onclick="addProduct()">+ Adicionar linha</button>
+      </div>
+      <table class="products-table">
+        <thead>
+          <tr>
+            <th>Produto / Serviço</th>
+            <th style="width:120px">Preço Unit.</th>
+            <th style="width:70px">Qtd.</th>
+            <th style="width:120px">Total</th>
+            <th style="width:32px"></th>
+          </tr>
+        </thead>
+        <tbody id="products-body">
+          <tr id="products-empty-row">
+            <td colspan="5" style="text-align:center;color:var(--gray);font-style:italic;padding:14px">
+              Clique em «+ Adicionar linha» para adicionar produtos ou serviços.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="products-totals">
+        <div class="totals-row">
+          <span class="t-label">Subtotal</span>
+          <span class="t-value" id="subtotal-display">0,00 €</span>
+        </div>
+        <div class="totals-row">
+          <span class="t-label">
+            IVA&nbsp;<input class="tax-input" id="tax-rate" type="number"
+                            value="0" min="0" max="100" step="0.5">&nbsp;%
+          </span>
+          <span class="t-value" id="tax-display">0,00 €</span>
+        </div>
+        <div class="totals-row grand">
+          <span class="t-label">Total</span>
+          <span class="t-value" id="grand-display">0,00 €</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4 — investment text -->
+    <div class="section-block">
+      <div class="section-banner">
+        <div class="num">4</div>
+        <div class="title">Investimento</div>
+      </div>
+      <div id="editor-investment"></div>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="section-block">
+      <div class="section-banner">
+        <div class="num">5</div>
+        <div class="title">Termos e Condições</div>
+      </div>
+      <div id="editor-terms"></div>
+    </div>
+
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+% ============================================================
+% PROPOSTA COMERCIAL — STYLE FILE
+% Design inspired by DSV-DQV Quaderno (De Marco & Coiro,
+% Università degli Studi di Napoli Federico II)
+% ============================================================
+
+
+% ---- COLORS — Grupo Acacia brand palette -------------------
+
+\definecolor{doc-dark}{HTML}{432616}    % Dark brown — primary brand
+\definecolor{doc-tan}{HTML}{f0c3a3}     % Light tan/peach — secondary brand
+\definecolor{doc-mid}{HTML}{7a4a2e}     % Mid brown — accents & rules
+\definecolor{doc-gray}{HTML}{6C757D}    % Muted gray — footer text
+\definecolor{doc-cream}{HTML}{fdf6ef}   % Warm cream — table alternate rows
+\definecolor{doc-darktext}{HTML}{2C2C2C}% Near-black — body text
+
+% Semantic aliases used throughout
+\colorlet{doc-navy}{doc-dark}     % "primary" in banner/section contexts
+\colorlet{doc-blue}{doc-mid}      % "accent" rules/lines
+\colorlet{doc-light}{doc-tan}     % "light" banner backgrounds
+\colorlet{doc-red}{doc-dark}      % reference box border
+
+% Backward-compatible aliases (content files may use these names)
+\colorlet{prop-primary}{doc-dark}
+\colorlet{prop-accent}{doc-mid}
+\colorlet{prop-muted}{doc-gray}
+\colorlet{prop-light}{doc-cream}
+
+
+% ---- FONTS (LuaTeX / fontspec) -----------------------------
+
+\setmainfont{TeX Gyre Termes}[Ligatures=TeX]
+\setsansfont{TeX Gyre Heros}[Ligatures=TeX]
+\setmathfont{TeX Gyre Termes Math}
+
+
+% ---- PAGE GEOMETRY -----------------------------------------
+
+\geometry{
+    a4paper,
+    top    = 2.5cm,
+    bottom = 2.5cm,
+    left   = 2.5cm,
+    right  = 2.5cm,
+    headheight = 14pt,
+    footskip   = 32pt
+}
+
+
+% ---- SECTION BANNER (DSV-DQV style) ------------------------
+%
+% Full-width light-blue rectangle.  Left: dark-navy number
+% box.  Right: dark-navy chevron.  Title in navy bold sans.
+%
+% titlesec passes the section title as the second argument
+% because \sectionbanner{\thesection} ends the before-code
+% with a command that still expects one more argument.
+
+\newlength{\bannernumwidth}  \setlength{\bannernumwidth}{1.8cm}
+\newlength{\bannerchevron}   \setlength{\bannerchevron}{0.85cm}
+\newlength{\bannerheight}    \setlength{\bannerheight}{1.1cm}
+
+\newcommand{\sectionbanner}[2]{%
+  \vspace{0.3em}%
+  \noindent%
+  \begin{tikzpicture}[baseline=(current bounding box.south)]
+    % Light-blue field
+    \fill[doc-light] (0,0) rectangle (\linewidth,\bannerheight);
+    % Number box
+    \fill[doc-navy]  (0,0) rectangle (\bannernumwidth,\bannerheight);
+    % Chevron
+    \fill[doc-navy]
+      (\dimexpr\linewidth-\bannerchevron\relax, 0) --
+      (\linewidth, 0.5\bannerheight) --
+      (\dimexpr\linewidth-\bannerchevron\relax, \bannerheight) -- cycle;
+    % Number (white, centred in left box)
+    \node[white, font=\bfseries\Large\sffamily, anchor=center]
+      at (0.5\bannernumwidth, 0.5\bannerheight) {#1};
+    % Title (navy, left-aligned in field)
+    \node[doc-navy, font=\bfseries\Large\sffamily,
+          anchor=west, inner sep=0pt,
+          text width=\dimexpr\linewidth-\bannernumwidth-\bannerchevron-0.6cm\relax]
+      at (\dimexpr\bannernumwidth+0.3cm\relax, 0.5\bannerheight) {#2};
+  \end{tikzpicture}%
+  \vspace{0.4em}%
+}
+
+
+% ---- SECTION FORMATTING ------------------------------------
+
+\setcounter{secnumdepth}{3}
+
+\titleformat{\section}[block]
+  {}{}
+  {0pt}
+  {\sectionbanner{\thesection}}
+
+\titleformat{\subsection}
+  {\color{doc-navy}\large\bfseries\sffamily}
+  {\thesubsection.}{0.5em}{}
+  [\vspace{-0.15em}{\color{doc-blue}\hrule height 0.4pt}\vspace{0.3em}]
+
+\titleformat{\subsubsection}
+  {\color{doc-navy}\normalsize\bfseries\sffamily}
+  {\thesubsubsection.}{0.5em}{}
+
+\titlespacing*{\section}      {0pt}{1.8em}{0.6em}
+\titlespacing*{\subsection}   {0pt}{0.9em}{0.3em}
+\titlespacing*{\subsubsection}{0pt}{0.6em}{0.2em}
+
+\renewcommand{\sectionmark}[1]{\markboth{#1}{#1}}
+
+
+% ---- TABLE OF CONTENTS -------------------------------------
+
+\addto\captionsportuguese{\renewcommand{\contentsname}{}}
+
+\renewcommand{\cftsecleader}   {\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+
+\renewcommand{\cftsecfont}       {\bfseries\sffamily\color{doc-navy}}
+\renewcommand{\cftsecpagefont}   {\bfseries\sffamily\color{doc-navy}}
+\renewcommand{\cftsubsecfont}    {\sffamily}
+\renewcommand{\cftsubsecpagefont}{\sffamily}
+
+\renewcommand{\cftsecindent}   {0em}
+\renewcommand{\cftsubsecindent}{1.5em}
+\setlength{\cftbeforesecskip}{0.4em}
+
+\newcommand{\toc}{%
+  \begin{center}
+    {\color{doc-navy}\LARGE\bfseries\sffamily Índice}
+  \end{center}
+  \vspace{0.3em}%
+  {\color{doc-navy}\hrule height 1.5pt}%
+  \vspace{1pt}%
+  {\color{doc-blue}\hrule height 0.4pt}%
+  \vspace{0.5em}%
+  \tableofcontents%
+  \vspace{0.5em}%
+  {\color{doc-blue}\hrule height 0.4pt}%
+  \vspace{1pt}%
+  {\color{doc-navy}\hrule height 0.8pt}%
+  \newpage%
+}
+
+
+% ---- HEADERS & FOOTERS (DSV-DQV style) ---------------------
+%
+% No header rule.
+% Footer: double horizontal rule (navy + blue) followed by
+%   L: proponent — client   C: section name   R: page number
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}   % drawn manually
+
+\renewcommand{\footrule}{%
+  {\color{doc-navy}\rule{\headwidth}{1pt}}\\[-2pt]%
+  {\color{doc-blue}\rule{\headwidth}{0.3pt}}%
+  \vspace{4pt}%
+}
+
+% Partner defaults — only applied if info file doesn't define them
+\AtBeginDocument{%
+    \providecommand{\partnercount}{0}%
+    \providecommand{\partnername}{}%
+}
+
+\fancyfoot[L]{\small\color{doc-gray}%
+    \proponentname%
+    \ifthenelse{\equal{\partnercount}{1}}{\ {\color{doc-mid}×}\ \partnername}{}%
+    \ —\ \clientname%
+}
+\fancyfoot[C]{\small\color{doc-gray}\leftmark}
+\fancyfoot[R]{\small\bfseries\sffamily\color{doc-navy}\thepage}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+  \renewcommand{\footrule}{}%
+}
+
+
+% ---- TABLES ------------------------------------------------
+
+\arrayrulewidth=0.5pt
+\arrayrulecolor{doc-navy}
+
+\addto\captionsportuguese{\def\tablename{Tabela}}
+
+\captionsetup{
+    font=small,
+    labelfont={bf,color=doc-navy},
+    textfont=it,
+    format=plain
+}
+
+
+% ---- LISTS -------------------------------------------------
+
+\setlist[itemize]{
+    label={\color{doc-blue}$\bullet$},
+    itemsep=0.3em,
+    leftmargin=1.5em
+}
+\setlist[enumerate]{
+    itemsep=0.3em,
+    leftmargin=1.5em
+}
+
+
+% ---- PARAGRAPH SPACING -------------------------------------
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+
+% ---- CUSTOM BOXES ------------------------------------------
+
+% Reference / version box — red border, like DSV-DQV
+\newtcbox{\refbox}{
+    on line, arc=2pt,
+    colback=white, colframe=doc-red,
+    boxrule=1.2pt, boxsep=0pt,
+    left=8pt, right=8pt, top=5pt, bottom=5pt,
+    fontupper=\small\bfseries\sffamily
+}
+
+% Generic bordered content box
+\newtcolorbox{contentbox}[1][doc-navy]{
+    colback=doc-cream, colframe=#1,
+    boxrule=0.8pt, arc=3pt,
+    left=12pt, right=12pt, top=10pt, bottom=10pt
+}
+
+% Executive summary / highlight box
+\newtcolorbox{highlightbox}{
+    colback=doc-light!40, colframe=doc-navy,
+    boxrule=1pt, arc=3pt,
+    left=12pt, right=12pt, top=10pt, bottom=10pt
+}
+
+% Inline accent badge (navy bg, white text)
+\newtcbox{\accentbox}{
+    on line, arc=2pt,
+    colback=doc-navy, colframe=doc-navy, colupper=white,
+    boxrule=0pt, boxsep=0pt,
+    left=6pt, right=6pt, top=3pt, bottom=3pt,
+    fontupper=\bfseries\small\sffamily
+}
+
+
+% ---- CUSTOM COMMANDS ---------------------------------------
+
+\newcommand{\money}[2]{\textbf{#1}\,\currency\,#2}
+\newcommand{\navytext}[1]{{\color{doc-navy}#1}}
+\newcommand{\bluetext}[1]{{\color{doc-blue}#1}}
+
+\addto\captionsportuguese{\def\refname{Referências}}

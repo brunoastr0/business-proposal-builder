@@ -1,0 +1,78 @@
+\documentclass[12pt, a4paper]{article}
+
+% ---- LuaTeX native — no inputenc/fontenc needed ----
+\usepackage[portuguese]{babel}
+
+% ---- Core utilities ----------------------------------------
+\usepackage{ifthen}
+\usepackage{xstring}
+\usepackage{etoolbox}
+\usepackage{calc}
+\usepackage{listofitems}
+\usepackage{comment}
+\usepackage{atbegshi}
+\usepackage{afterpage}
+
+% ---- Typography --------------------------------------------
+\usepackage{fontspec}
+\usepackage{microtype}
+
+% ---- Math --------------------------------------------------
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{unicode-math}
+
+% ---- Page layout -------------------------------------------
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{setspace}
+\usepackage{multicol}
+\usepackage{lscape}
+\usepackage{pdflscape}
+
+% ---- Sections & TOC ----------------------------------------
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage[subfigure]{tocloft}
+
+% ---- Tables ------------------------------------------------
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{colortbl}
+
+% ---- Figures -----------------------------------------------
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+
+% ---- Colors & boxes ----------------------------------------
+\usepackage[table]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc, shapes.misc, arrows.meta, fit, decorations.pathmorphing}
+\usepackage[most]{tcolorbox}
+\usepackage{mdframed}
+\usepackage{soul}
+
+% ---- Lists -------------------------------------------------
+\usepackage{enumitem}
+
+% ---- Hyperlinks --------------------------------------------
+\usepackage[breaklinks, hidelinks]{hyperref}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+
+% ---- Misc --------------------------------------------------
+\usepackage{eurosym}
+\usepackage{xfrac}
+
+% ---- Load custom style -------------------------------------
+\usepackage{setup/setup}
+
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}

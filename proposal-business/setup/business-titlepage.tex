@@ -1,0 +1,156 @@
+% ============================================================
+% TITLE PAGE — Grupo Acacia brand
+% Supports optional partner company via \partnercount=1
+% ============================================================
+{%
+\thispagestyle{plain}%
+\newgeometry{top=1.8cm, bottom=1.8cm, left=2.5cm, right=2.5cm}%
+\setlength{\parskip}{0pt}%
+
+% ---- TOP: logos (left) + proponent info (right) ------------
+\noindent%
+\begin{minipage}[c]{0.44\textwidth}
+    % Main logo
+    \ifthenelse{\equal{\logocount}{1}}{%
+        \includegraphics[height=2.2cm]{\logoone}%
+    }{%
+        \ifthenelse{\equal{\logocount}{2}}{%
+            \includegraphics[height=2.0cm]{\logoone}\hspace{0.6em}%
+            \includegraphics[height=2.0cm]{\logotwo}%
+        }{}%
+    }%
+    % Partner logo / name (when enabled)
+    \ifthenelse{\equal{\partnercount}{1}}{%
+        \par\vspace{0.4em}%
+        {\color{doc-mid}\rule{2.2cm}{0.4pt}}%
+        \par\vspace{0.3em}%
+        \ifthenelse{\equal{\partnerlogo}{}}{%
+            {\color{doc-gray}\fontsize{7}{8}\selectfont\sffamily em parceria com}%
+            \par\vspace{0.15em}%
+            {\color{doc-dark}\small\bfseries\sffamily\partnername}%
+        }{%
+            {\color{doc-gray}\fontsize{7}{8}\selectfont\sffamily em parceria com}%
+            \par\vspace{0.2em}%
+            \includegraphics[height=1.4cm]{\partnerlogo}%
+        }%
+    }{}%
+\end{minipage}%
+\hfill%
+\begin{minipage}[c]{0.52\textwidth}
+    \raggedleft\color{doc-gray}\small\sffamily
+    \textbf{\color{doc-dark}\normalsize\proponentname}\\[0.15em]
+    \proponentcontact\\
+    \proponentaddress\\
+    \proponentemail\\
+    \proponentphone\\
+    \proponentwebsite
+\end{minipage}
+
+\vspace{0.7cm}
+
+% ---- DOUBLE DECORATIVE RULE --------------------------------
+{\color{doc-dark}\rule{\linewidth}{2pt}}\\[2pt]%
+{\color{doc-mid}\rule{\linewidth}{0.5pt}}
+
+\vspace{0.9cm}
+
+% ---- MAIN TITLE --------------------------------------------
+\begin{center}
+    {\fontsize{34}{42}\selectfont\bfseries\sffamily\color{doc-dark}\doctype}
+\end{center}
+
+\vspace{0.7cm}
+
+% ---- BRAND DOCUMENT BANNER ---------------------------------
+\noindent%
+\begin{tikzpicture}
+    \fill[doc-tan]  (0,0) rectangle (\linewidth, 1.2cm);
+    \fill[doc-dark] (0,0) rectangle (3.0cm, 1.2cm);
+    \fill[doc-dark]
+        (\dimexpr\linewidth-0.9cm\relax, 0) --
+        (\linewidth, 0.6cm) --
+        (\dimexpr\linewidth-0.9cm\relax, 1.2cm) -- cycle;
+    \node[white, font=\bfseries\sffamily\small, anchor=center]
+        at (1.5cm, 0.6cm) {\proposalref};
+    \node[doc-dark, font=\sffamily\large, anchor=center]
+        at (0.5\linewidth, 0.6cm) {\proposaldate};
+\end{tikzpicture}
+
+\vspace{1.0cm}
+
+% ---- CLIENT / PROPONENT / PARTNER --------------------------
+\noindent{\color{doc-dark}\large\bfseries\sffamily Preparado para}
+\par\vspace{0.3em}%
+{\color{doc-mid}\rule{\linewidth}{0.5pt}}\\[2pt]%
+{\color{doc-dark}\rule{\linewidth}{0.8pt}}%
+\vspace{0.6em}
+
+\ifthenelse{\equal{\partnercount}{1}}{%
+    % --- Three-column table (client | proponent | partner) ---
+    \noindent%
+    \begin{tabular}{@{}p{0.30\linewidth}@{\hspace{0.03\linewidth}}%
+                       p{0.31\linewidth}@{\hspace{0.03\linewidth}}%
+                       p{0.30\linewidth}@{}}
+        {\color{doc-gray}\small\sffamily Cliente} &
+        {\color{doc-gray}\small\sffamily Proponente} &
+        {\color{doc-gray}\small\sffamily Parceiro} \\[0.3em]
+        \textbf{\color{doc-dark}\normalsize\sffamily\clientname} &
+        \textbf{\color{doc-dark}\normalsize\sffamily\proponentname} &
+        \textbf{\color{doc-dark}\normalsize\sffamily\partnername} \\[0.2em]
+        \sffamily\small\clientcompany   & \sffamily\small\proponentcontact & \sffamily\small\partnercontact \\[0.05em]
+        \sffamily\small\clientaddress   & \sffamily\small\proponentaddress & \sffamily\small\partneraddress \\[0.05em]
+        \sffamily\small\clientemail     & \sffamily\small\proponentemail   & \sffamily\small\partneremail   \\[0.05em]
+        \sffamily\small\clientphone     & \sffamily\small\proponentphone   & \sffamily\small\partnerphone   \\
+    \end{tabular}%
+}{%
+    % --- Two-column table (client | proponent) ---------------
+    \noindent%
+    \begin{tabular}{@{}p{0.46\linewidth}@{\hspace{0.08\linewidth}}p{0.46\linewidth}@{}}
+        {\color{doc-gray}\small\sffamily Cliente} &
+        {\color{doc-gray}\small\sffamily Proponente} \\[0.3em]
+        \textbf{\color{doc-dark}\large\sffamily\clientname} &
+        \textbf{\color{doc-dark}\large\sffamily\proponentname} \\[0.2em]
+        \sffamily\small\clientcompany   & \sffamily\small\proponentcontact \\[0.05em]
+        \sffamily\small\clientaddress   & \sffamily\small\proponentaddress \\[0.05em]
+        \sffamily\small\clientemail     & \sffamily\small\proponentemail   \\[0.05em]
+        \sffamily\small\clientphone     & \sffamily\small\proponentphone   \\
+    \end{tabular}%
+}%
+
+\vfill
+
+% ---- CENTRED BRAND MARK ------------------------------------
+\begin{center}
+    \includegraphics[height=3cm]{docs/logo-light}
+\end{center}
+
+\vfill
+
+% ---- BOTTOM: double rule + reference box -------------------
+{\color{doc-mid}\rule{\linewidth}{0.5pt}}\\[2pt]%
+{\color{doc-dark}\rule{\linewidth}{1.5pt}}%
+
+\vspace{0.7cm}
+
+\begin{center}
+    \begin{tcolorbox}[
+        enhanced, width=\linewidth,
+        colback=white, colframe=doc-dark,
+        boxrule=1.2pt, arc=3pt,
+        left=12pt, right=12pt, top=8pt, bottom=8pt,
+        halign=center
+    ]
+        {\color{doc-gray}\small\sffamily Referência}\\[0.3em]
+        \begin{tabular}{c@{\quad}c@{\quad}c@{\quad}c@{\quad}c}
+            {\color{doc-dark}\large\bfseries\sffamily\proposalref} &
+            {\color{doc-mid}\large\sffamily|} &
+            {\color{doc-dark}\large\sffamily\proposaldate} &
+            {\color{doc-mid}\large\sffamily|} &
+            {\color{doc-dark}\normalsize\sffamily\proposalversion}
+        \end{tabular}
+    \end{tcolorbox}
+\end{center}
+
+\restoregeometry%
+\newpage%
+}
