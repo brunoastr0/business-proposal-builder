@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         texlive-latex-extra \
         texlive-fonts-extra \
         texlive-lang-portuguese \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && luaotfload-tool --update
 
 WORKDIR /app
 
