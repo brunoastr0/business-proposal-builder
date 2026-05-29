@@ -246,11 +246,17 @@ def compile_proposal(data: dict, content: dict) -> bytes:
         pdf = work / "build" / "business-proposal.pdf"
         if not pdf.exists():
             log_path = work / "build" / "business-proposal.log"
-            excerpt = (
-                log_path.read_text(errors="ignore")[-3000:]
-                if log_path.exists()
-                else "no log"
-            )
+            if log_path.exists():
+                lines = log_path.read_text(errors="ignore").splitlines()
+                # Extract error lines + 4 lines of context after each
+                error_lines = []
+                for i, line in enumerate(lines):
+                    if line.startswith("!") or "LaTeX Error" in line or "Fatal error" in line:
+                        error_lines.extend(lines[i : i + 5])
+                        error_lines.append("---")
+                excerpt = "\n".join(error_lines) if error_lines else "\n".join(lines[-60:])
+            else:
+                excerpt = "no log produced"
             raise RuntimeError(f"lualatex failed.\n\n{excerpt}")
 
         return pdf.read_bytes()
